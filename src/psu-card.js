@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit';
 const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
 class PsuCard extends LitElement {
+
   static properties = {
     header: { type: String },
   }
@@ -33,6 +34,24 @@ class PsuCard extends LitElement {
       font-size: calc(12px + 0.5vmin);
       align-items: center;
     }
+
+    #cDescription {
+    color: white;
+    font-family: "Lucida Console";
+  }
+
+  #toggleDescription {
+    display: flex;
+    background-color: white;
+    color: black;
+    width: 50%;
+    align-items: center; 
+    border-radius:20px;
+    justify-content: center;
+    margin-left: 70px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: "Lucida Console"; }
 
     .app-footer a {
       margin-left: 5px;
@@ -139,11 +158,19 @@ class PsuCard extends LitElement {
          
           <img src="https://nittanylionswire.usatoday.com/wp-content/uploads/sites/100/2023/04/USATSI_20469545.jpg?w=1000" alt="Card Image" />
           <div>
+            <details>
+              <summary id = "toggleDescription" > Toggle description </summary>
+              
+                <p> Blue and White is a Penn State Football Game day where the team is split into two teams blue and white</p>
+              
+
+            
+            </details>
            
-            <button class="details-button">Toggle Description</button>
+
           </div>
          
-         <p class="description-hidden">Blue and White is a Penn State Football Game day where the team is split into two teams blue and white</p>
+
         </div>
       </div>
     </div>
