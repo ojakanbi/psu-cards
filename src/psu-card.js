@@ -154,6 +154,9 @@ class PsuCard extends LitElement {
     const colorButton = this.shadowRoot.querySelector("#colorButton");
     const deleteButton = this.shadowRoot.querySelector("#deleteButton");
     const titleButton = this.shadowRoot.querySelector("#titleButton");
+
+
+
   
     // Store an array to keep track of the cloned card elements
     const clonedCards = [];
@@ -190,24 +193,39 @@ class PsuCard extends LitElement {
         }
       });
   
-      titleButton.addEventListener("click", () => {
-        console.log("yo")
-        const originalTitle = this.shadowRoot.querySelector(".cardTitle");
-        const cardTitle = this.shadowRoot.querySelector(".cardTitle");
-        if (originalTitle.textContent === "PSU Blue and White") {
-          originalTitle.textContent = "PSU";
-          cardTitle.textContent = "PSU Blue and White";
-        } else {
-          originalTitle.textContent = "Penn State Football";
-          cardTitle.textContent = "Penn State Football";
-        }
-      });
+    
       
   
       // Generate a unique random color for each cloned card
       const randomColor = this.getRandomColor();
       clonedCard.style.backgroundColor = randomColor;
     });
+
+    titleButton.addEventListener("click", () => {
+      const originalCardTitle = this.shadowRoot.querySelector("#cardTitle");
+      
+      // Change the title of the original card
+      if (originalCardTitle.textContent === "PSU Blue and White") {
+        originalCardTitle.textContent = "PSU";
+      } else {
+        originalCardTitle.textContent = "PSU Blue and White";
+      }
+    
+      // Change the title of cloned cards
+      clonedCards.forEach((clonedCard) => {
+        const clonedCardTitle = clonedCard.querySelector("#cardTitle");
+        if (clonedCardTitle.textContent === "PSU Blue and White") {
+          clonedCardTitle.textContent = "PSU";
+        } else {
+          clonedCardTitle.textContent = "PSU Blue and White";
+        }
+      });
+
+    
+  
+ 
+    })
+  
   
     // Event listener for changing card color
     colorButton.addEventListener("click", () => {
@@ -252,7 +270,7 @@ class PsuCard extends LitElement {
        
         <div class="card-content">
          
-          <h2 class="cardTitle">PSU Blue and White</h2>
+          <h2 id="cardTitle">PSU Blue and White</h2>
      
           <p> Blue and White is a Penn State Football Game day where the team is split into two teams blue and white" : "Blue and White game day</p>
          
