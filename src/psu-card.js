@@ -141,8 +141,108 @@ class PsuCard extends LitElement {
     this.header = 'My app';
   }
 
+  firstUpdated() {
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    const cloneButton = this.shadowRoot.querySelector("#cloneButton");
+    const colorButton = this.shadowRoot.querySelector("#colorButton");
+    const deleteButton = this.shadowRoot.querySelector("#deleteButton");
+    const titleButton = this.shadowRoot.querySelector("#titleButton");
+  
+    // Store an array to keep track of the cloned card elements
+    const clonedCards = [];
+  
+    // Event listener for cloning a card
+    cloneButton.addEventListener("click", () => {
+      console.log("yo")
+      const cardToClone = this.shadowRoot.querySelector(".card-container");
+      const clonedCard = cardToClone.cloneNode(true);
+  
+      // Store the cloned card in the array
+      clonedCards.push(clonedCard);
+  
+      this.shadowRoot.querySelector(".cards").appendChild(clonedCard);
+  
+      // Get references to elements in the cloned card
+      const clonedDetailsButton = clonedCard.querySelector(".details-button");
+      const description = clonedCard.querySelector(".description-hidden");
+      const cardTitle = clonedCard.querySelector(".cardTitle");
+  
+      clonedCard.addEventListener("mouseover", () => {
+        clonedCard.style.backgroundColor = this.getRandomColor();
+      });
+  
+      clonedCard.addEventListener("mouseout", () => {
+        clonedCard.style.backgroundColor = "";
+      });
+  
+      clonedDetailsButton.addEventListener("click", () => {
+        if (description.style.display === "none" || description.style.display === "") {
+          description.style.display = "block";
+        } else {
+          description.style.display = "none";
+        }
+      });
+  
+      titleButton.addEventListener("click", () => {
+        console.log("yo")
+        const originalTitle = this.shadowRoot.querySelector(".cardTitle");
+        const cardTitle = this.shadowRoot.querySelector(".cardTitle");
+        if (originalTitle.textContent === "PSU Blue and White") {
+          originalTitle.textContent = "PSU";
+          cardTitle.textContent = "PSU Blue and White";
+        } else {
+          originalTitle.textContent = "Penn State Football";
+          cardTitle.textContent = "Penn State Football";
+        }
+      });
+      
+  
+      // Generate a unique random color for each cloned card
+      const randomColor = this.getRandomColor();
+      clonedCard.style.backgroundColor = randomColor;
+    });
+  
+    // Event listener for changing card color
+    colorButton.addEventListener("click", () => {
+      const cardToClone = this.shadowRoot.querySelector(".card-container");
+      cardToClone.style.backgroundColor = getRandomColor();
+      clonedCards.forEach((clonedCard) => {
+        const randomColor = getRandomColor();
+        clonedCard.style.backgroundColor = randomColor;
+      });
+    });
+  
+    // Event listener for deleting the last card
+    deleteButton.addEventListener("click", () => {
+      if (clonedCards.length > 0) {
+        const lastCard = clonedCards.pop();
+        lastCard.remove();
+      }
+    });
+  
+    // ...
+  
+
+    // Function to generate a random color
+
+
+}
+
   render() {
     return html`
+
+<button id="cloneButton" @click="${this.cloneButton}">Clone Card</button>
+<button id="colorButton" @click="${this.colorButton}">Change Card Color</button>
+<button id="titleButton" @click="${this.titleButton}">Change Title</button>
+<button id="deleteButton">Delete Last Card</button>
+
      
     
     <div class="cards">
@@ -154,7 +254,7 @@ class PsuCard extends LitElement {
          
           <h2 class="cardTitle">PSU Blue and White</h2>
      
-          <p> "Blue and White is a Penn State Football Game day where the team is split into two teams blue and white" : "Blue and White game day"</p>
+          <p> Blue and White is a Penn State Football Game day where the team is split into two teams blue and white" : "Blue and White game day</p>
          
           <img src="https://nittanylionswire.usatoday.com/wp-content/uploads/sites/100/2023/04/USATSI_20469545.jpg?w=1000" alt="Card Image" />
           <div>
