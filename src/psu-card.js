@@ -1,13 +1,18 @@
 import { LitElement, html, css } from 'lit';
 
 class PsuCard extends LitElement {
-  static properties = {
+  static get properties (){
+    return {
     image: { type: String },
     alt: { type: String },
     title: { type: String },
     description: { type: String },
     link: { type: String },
-    dark: { type: Boolean },
+    dark: { type: Boolean,
+    reflect: true,
+   }
+    
+    }
   };
   static styles = css`
 .buttonContainer{
@@ -16,6 +21,7 @@ class PsuCard extends LitElement {
   margin: 20px;
   position: fixed;
 }
+
 
 
   .cards {
@@ -34,6 +40,16 @@ class PsuCard extends LitElement {
     max-width: 400px;
     text-align: center;
   }
+
+  :host([dark]) .card-container {
+      background-color: #151c23;
+    }
+
+  .card-container:hover { 
+    background-color: #41426f;
+  }
+
+
 
   .card-content {
     color: #333;
@@ -61,9 +77,7 @@ class PsuCard extends LitElement {
     transition: background-color 0.3s ease;
   }
 
-  button:hover {
-    background-color: #001133;
-  }
+ 
 `;
 
 
@@ -77,92 +91,92 @@ class PsuCard extends LitElement {
     this.dark= false;
   }
 
-  firstUpdated() {
+  // firstUpdated() {
     // Your JavaScript functionality here
-    const clonedCards = [];
-    const getRandomColor = () => {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    };
+  //   const clonedCards = [];
+  //   const getRandomColor = () => {
+  //     const letters = '0123456789ABCDEF';
+  //     let color = '#';
+  //     for (let i = 0; i < 6; i++) {
+  //       color += letters[Math.floor(Math.random() * 16)];
+  //     }
+  //     return color;
+  //   };
 
 
-    const titleButton = this.shadowRoot.querySelector('#titleButton');
-    titleButton.addEventListener('click', () => { 
-      const cardTitle = this.shadowRoot.querySelector('.cardTitle');
-      if( cardTitle.textContent === 'PSU Blue and White') { 
-        cardTitle.textContent = 'PSU';
-      } else {
-        cardTitle.textContent = 'PSU Blue and White';
-      }
+  //   const titleButton = this.shadowRoot.querySelector('#titleButton');
+  //   titleButton.addEventListener('click', () => { 
+  //     const cardTitle = this.shadowRoot.querySelector('.cardTitle');
+  //     if( cardTitle.textContent === 'PSU Blue and White') { 
+  //       cardTitle.textContent = 'PSU';
+  //     } else {
+  //       cardTitle.textContent = 'PSU Blue and White';
+  //     }
      
-      console.log('title changed');
+  //     console.log('title changed');
   
-  });
+  // });
 
-    this.shadowRoot.querySelector('#cloneButton').addEventListener('click', () => {
-      const cardToClone = this.shadowRoot.querySelector('.card-container');
-      const clonedCard = cardToClone.cloneNode(true);
-      clonedCards.push(clonedCard);
-      this.shadowRoot.querySelector('.cards').appendChild(clonedCard);
+  //   this.shadowRoot.querySelector('#cloneButton').addEventListener('click', () => {
+  //     const cardToClone = this.shadowRoot.querySelector('.card-container');
+  //     const clonedCard = cardToClone.cloneNode(true);
+  //     clonedCards.push(clonedCard);
+  //     this.shadowRoot.querySelector('.cards').appendChild(clonedCard);
 
-      const clonedDetailsButton = clonedCard.querySelector('.details-button');
-      const description = clonedCard.querySelector('.description-hidden');
-      const cardTitle = clonedCard.querySelector('.cardTitle');
+  //     const clonedDetailsButton = clonedCard.querySelector('.details-button');
+  //     const description = clonedCard.querySelector('.description-hidden');
+  //     const cardTitle = clonedCard.querySelector('.cardTitle');
 
-      clonedCard.addEventListener('mouseover', () => {
-        clonedCard.style.backgroundColor = getRandomColor();
-      });
+  //     clonedCard.addEventListener('mouseover', () => {
+  //       clonedCard.style.backgroundColor = getRandomColor();
+  //     });
 
-      clonedCard.addEventListener('mouseout', () => {
-        clonedCard.style.backgroundColor = '';
-      });
+  //     clonedCard.addEventListener('mouseout', () => {
+  //       clonedCard.style.backgroundColor = '';
+  //     });
          
-      // do the title change for the cloned card aswell
-      titleButton.addEventListener('click', () => { 
-        if( cardTitle.textContent === 'PSU Blue and White') { 
-          cardTitle.textContent = 'PSU';
-        } else {
-          cardTitle.textContent = 'PSU Blue and White';
-        }
-      });
+  //     // do the title change for the cloned card aswell
+  //     titleButton.addEventListener('click', () => { 
+  //       if( cardTitle.textContent === 'PSU Blue and White') { 
+  //         cardTitle.textContent = 'PSU';
+  //       } else {
+  //         cardTitle.textContent = 'PSU Blue and White';
+  //       }
+  //     });
 
 
       
       
 
-      const randomColor = getRandomColor();
-      clonedCard.style.backgroundColor = randomColor;
-    });
+  //     const randomColor = getRandomColor();
+  //     clonedCard.style.backgroundColor = randomColor;
+  //   });
 
-    this.shadowRoot.querySelector('#colorButton').addEventListener('click', () => {
-      const cardToClone = this.shadowRoot.querySelector('.card-container');
-      cardToClone.style.backgroundColor = getRandomColor();
-      clonedCards.forEach((clonedCard) => {
-        const randomColor = getRandomColor();
-        clonedCard.style.backgroundColor = randomColor;
-      });
-    });
+  //   this.shadowRoot.querySelector('#colorButton').addEventListener('click', () => {
+  //     const cardToClone = this.shadowRoot.querySelector('.card-container');
+  //     cardToClone.style.backgroundColor = getRandomColor();
+  //     clonedCards.forEach((clonedCard) => {
+  //       const randomColor = getRandomColor();
+  //       clonedCard.style.backgroundColor = randomColor;
+  //     });
+  //   });
 
-    this.shadowRoot.querySelector('#deleteButton').addEventListener('click', () => {
-      if (clonedCards.length > 0) {
-        const lastCard = clonedCards.pop();
-        lastCard.remove();
-      }
-    });
-  }
+  //   this.shadowRoot.querySelector('#deleteButton').addEventListener('click', () => {
+  //     if (clonedCards.length > 0) {
+  //       const lastCard = clonedCards.pop();
+  //       lastCard.remove();
+  //     }
+  //   });
+  // }
 
   render() {
     return html`
-      <div class="buttonContainer">
+      <!-- <div class="buttonContainer">
         <button id="cloneButton">Clone Card</button>
         <button id="colorButton">Change Card Color</button>
         <button id="titleButton" @click="${this.titleButton}">Change Title</button>
         <button id="deleteButton">Delete Last Card</button>
-      </div>
+      </div> -->
       <div class="cards">
         <div class="card-container">
           <div class="card-content">

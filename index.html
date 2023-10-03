@@ -20,11 +20,79 @@
 </head>
 
 <body>
-  <psu-card>
+  <div class="buttonContainer">
+    <button id="duplicate">Clone Card</button>
+    <button id="colorButton">Change Card Color</button>
+    <button id="titleButton" @click="${this.titleButton}">Change Title</button>
+    <button id="deleteButton">Delete Last Card</button>
+  </div>
+
+  <psu-card image ="https://m.media-amazon.com/images/I/613Xu8FT8gL.jpg" title="Penn State" >
      <p>Penn State Blue and White </p>
   </psu-card>
 
-  <script type="module" src="./src/psu-card.js"></script>
+  <psu-card  >
+    <p>Penn State Blue and White </p>
+ </psu-card>
+
+  <script type="module" src="./src/psu-card.js"> </script>
+
+  <script>
+const clonedCard = []
+ 
+    // duplicate card
+    const duplicateButton = document.querySelector('#duplicate')
+
+    duplicateButton.addEventListener('click', () => {
+        const card = document.querySelector('psu-card');
+       const clonedCard =  card.insertAdjacentElement('afterend', card.cloneNode());
+       cloneCard.push(clonedCard);
+    });
+  
+    
+      // Delete Card
+    const deleteButton = document.querySelector('#deleteButton')
+
+  deleteButton.addEventListener('click', function() {
+    const allCardClones = document.querySelectorAll('psu-card');
+    if (allCardClones.length > 1) {
+      allCardClones[allCardClones.length - 1].remove();
+    }
+});
+
+ // Toggle background color
+const backgroundButton = document.querySelector('#colorButton')
+
+backgroundButton.addEventListener('click', function() {
+    const card = document.querySelector('psu-card');
+    card.dark = !card.dark;
+});
+
+// Change name
+const nameBtn = document.querySelector('#titleButton');
+
+nameBtn.addEventListener('click', function() {
+  let name = prompt("Name the card:");
+
+  if(name) {
+    document.querySelector('psu-card').title = name;
+  }
+});
+ // for each card change the background color
+  const cards = document.querySelectorAll('psu-card');
+
+
+      cards.addEventListener('mouseover', () => {
+        clonedCard.style.backgroundColor = 'red';
+      });
+
+      cards.addEventListener('mouseout', () => {
+        clonedCard.style.backgroundColor = '';
+      });
+
+   
+
+  </script>
 </body>
 
 </html>
