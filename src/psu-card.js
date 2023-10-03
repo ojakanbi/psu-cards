@@ -1,6 +1,14 @@
 import { LitElement, html, css } from 'lit';
 
 class PsuCard extends LitElement {
+  static properties = {
+    image: { type: String },
+    alt: { type: String },
+    title: { type: String },
+    description: { type: String },
+    link: { type: String },
+    dark: { type: Boolean },
+  };
   static styles = css`
 .buttonContainer{
   display: flex;
@@ -61,7 +69,12 @@ class PsuCard extends LitElement {
 
   constructor() {
     super();
-    this.header = 'My app';
+    this.image= "https://source.unsplash.com/random/200x200?sig=incrementingIdentifier";
+    this.alt= "Card Image";
+    this.title= "PSU Card";
+    this.description= "Toggle Description";
+    this.link= "https://www.psu.edu/";
+    this.dark= false;
   }
 
   firstUpdated() {
@@ -153,20 +166,16 @@ class PsuCard extends LitElement {
       <div class="cards">
         <div class="card-container">
           <div class="card-content">
-            <h2 class="cardTitle">PSU Blue and White</h2>
-            <p>
-              Blue and White is a Penn State Football Game day where the team is split into two teams blue and white.
-            </p>
+            <h2 class="cardTitle"> ${this.title}</h2>
+           
             <img
-              src="https://nittanylionswire.usatoday.com/wp-content/uploads/sites/100/2023/04/USATSI_20469545.jpg?w=1000"
+              src="${this.image}"
               alt="Card Image"
             />
             <div>
               <details>
-                <summary id="toggleDescription">Toggle description</summary>
-                <p>
-                  Blue and White is a Penn State Football Game day where the team is split into two teams blue and white.
-                </p>
+                <summary id="toggleDescription">${this.description}</summary>
+                <slot></slot>
               </details>
             </div>
           </div>
